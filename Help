@@ -1,0 +1,35 @@
+//Define libraries
+#include <DHT.h>
+#include <SPI.h>
+#include <nRF24L01.h>
+#include <RF24.h>
+
+//define Pins
+RF24 radio(4, 5); // CE, CSN
+const byte address[6] = "00001";// adresse du canal de communication
+
+void setup(){
+Serial.begin(9600); // initialisation du moniteur série
+radio.begin();// initialisation du module NRF24L01
+radio.openReadingPipe(0, address); // configuration du canal de communication du module NRF24L01
+radio.setPALevel(RF24_PA_MIN);); // puissance max 0 dB
+radio.startListening();// le module est en mode récepteur
+}
+
+void loop() {
+String req;
+if (radio.available()) { // si des données sont présentes
+radio.read(&req, sizeof(req));
+Serial.println(req);
+}
+
+}
+
+In file included from C:\Users\zsell\OneDrive\Documents\Arduino\libraries\RF24/RF24.h:18,
+from C:\Users\zsell\OneDrive\Desktop\code récepteur\Code__Recepteur\Code__Recepteur.ino:5:
+C:\Users\zsell\OneDrive\Documents\Arduino\libraries\RF24/RF24_config.h:137:11: fatal error: avr/pgmspace.h: No such file or directory
+#include <avr/pgmspace.h>
+^~~~~~~~~~~~~~~~
+compilation terminated.
+exit status 1
+Erreur de compilation pour la carte ESP32 Dev Module
